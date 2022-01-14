@@ -48,6 +48,7 @@ p {
 <link rel="stylesheet" href="index.css">
 </head>
   
+  <body>
   <div id="clock">
     
     <p class="text">Daimoku Timer</p>
@@ -71,6 +72,17 @@ p {
     <button class="button button1"> Theme </button>
   
     <button class="button button1"> Settings </button>
+  
+    <script>
+      if (navigator.serviceWorker) {
+        navigator.serviceWorker.register (
+          '/Daimoku-Timer/sw.js',
+          {scope: '/Daimoku-Timer/'}
+        )
+      }
+  </script>
+    
+  </body>
   
 </html>
 
