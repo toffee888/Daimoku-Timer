@@ -34,7 +34,7 @@ p    {;}
     
     <body>
         <div id="stopwatch">
-            <p class="text" style="font-size:110px;"> 00:00:00 </p>
+            <p class="text" id="time" style="font-size:110px;"> 00:00:00 </p>
         </div>
 
         <ul id="buttons">
@@ -44,7 +44,8 @@ p    {;}
             <li><button onclick="resetTimer()">Reset</button></li>
         </ul>
 
-        <script>
+<script>
+document.getElementById("time").style.font-size = "110px";
           
 const timer = document.getElementById('stopwatch');
 
@@ -102,7 +103,7 @@ function timerCycle() {
 function resetTimer() {
     timer.innerHTML = '00:00:00';
 }
-      </script>
+</script>
       
     </body>
 </html>
