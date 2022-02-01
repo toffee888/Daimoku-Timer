@@ -1,11 +1,74 @@
 <html>
     
 <style>
-        
-body {;}
-h1   {;}
-p    {;}
-    
+
+h1 {
+  text-align: center;
+  font-size: 60px;
+  margin-top: 0px;
+}
+
+button {
+  display: inline;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #EEEEEE;
+  background-color: #17a7dc;
+  border: none;
+  border-radius: 30%;
+  box-shadow: 0 9px #999;
+}
+
+button:hover {background-color: #08478f}
+
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+
+
+.video
+{
+  position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    transform: translateX(-50%) translateY(-50%);
+    background: url('images/poster.jpg') no-repeat;
+    background-size: cover;
+    transition: 1s opacity;
+}
+
+.header {
+  position: relative;
+  height: 100vh;
+  text-align: center;
+  justify-content: center;
+}
         
 </style>
     
@@ -14,30 +77,53 @@ p    {;}
     </title>
     
     <head>
-        <link rel="stylesheet" href="style.css">
     </head>
     
     <body>
-        <div id="stopwatch">
-            <p class="text" id="time" style="font-size:110px;"> 00:00:00 </p>
+
+        <div class="video">
+        <video playsinline autoplay muted loop>
+        <source src="video.mp4" type="video/webm">
+        </video>
         </div>
 
-        <ul id="buttons">
-            <li><button onclick="startTimer()">Start</button></li>
-            <li><button onclick="stopTimer()">Stop</button></li>
+        <div class="header">
 
-            <li><button onclick="resetTimer()">Reset</button></li>
-        </ul>
+        <h1 id="time"> 00:00:00 </h1>
+
+        <div id = "center">
+                <button onclick="flip()" id="State">Start</button>
+                <button onclick="resetTimer()">Reset</button>
+        </div>
+
+        </div>
 
 <script>
-document.getElementById("time").style.fontSize = "110px";
           
-const timer = document.getElementById('stopwatch');
 
 var hr = 0;
 var min = 0;
 var sec = 0;
 var stoptime = true;
+var total;
+var state = "Start"
+
+function flip() { //start stop
+  if (state == "Start") {
+    state = "Stop";
+    document.getElementById("State").innerHTML=state;
+    startTimer();
+    return;
+  }
+
+ if (state == "Stop") {
+    state = "Start";
+    document.getElementById("State").innerHTML=state;
+    stopTimer();
+    return;
+  }
+}
+
 
 function startTimer() {
   if (stoptime == true) {
@@ -45,10 +131,18 @@ function startTimer() {
         timerCycle();
     }
 }
+
 function stopTimer() {
   if (stoptime == false) {
     stoptime = true;
   }
+}
+
+function annouce() {
+
+    total = (hr*3600 + min*60 + sec) * (5/6);
+    total = Math.floor(total);
+    alert("you did " + total + " daimoku on average, please daimoku more!")
 }
 
 function timerCycle() {
@@ -79,16 +173,23 @@ function timerCycle() {
       hr = '0' + hr;
     }
 
-    timer.innerHTML = hr + ':' + min + ':' + sec;
+    document.getElementById("time").innerHTML = hr + ':' + min + ':' + sec;
 
     setTimeout("timerCycle()", 1000);
   }
 }
 
 function resetTimer() {
-    timer.innerHTML = '00:00:00';
+    document.getElementById("time").innerHTML = '00:00:00';
+    stoptime = true;
+    state = "Start";
+    document.getElementById("State").innerHTML=state;
+    hr = 0;
+    min = 0;
+    sec = 0;
 }
 </script>
       
     </body>
+
 </html>
